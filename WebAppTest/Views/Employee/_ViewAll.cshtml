@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebAppTest.Models.Employee>
+
+<p>
+    <a onclick="showInPopup('@Url.Action("Create","Employee",null,Context.Request.Scheme)','Add Employee')" class="btn btn-success text-white"><i class="fas fa-plus-square"></i> Add New Employee</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.No)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                <a onclick="showInPopup('@Url.Action("Create","Employee",new { id= item.No },Context.Request.Scheme)','Update Employee')" class="btn btn-info text-white"><i class="fas fa-pencil"></i></a>
+                <form asp-action="Delete" asp-route-id="@item.No" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                        @*<input type="submit" value="Delete" class="btn btn-danger" />*@
+                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
